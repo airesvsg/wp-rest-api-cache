@@ -4,7 +4,7 @@
  * Description: Enable caching for WordPress REST API and increase speed of your application
  * Author: Aires Gonçalves
  * Author URI: http://github.com/airesvsg
- * Version: 1.0.0
+ * Version: 1.1.0
  * Plugin URI: https://github.com/airesvsg/wp-rest-api-cache
  * License: GPL2+
  */
@@ -17,8 +17,8 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
 
 	class WP_REST_Cache {
 
-		private static $instance = null;
-		
+		const VERSION = '1.1.0';
+
 		private static $refresh = null;
 
 		public static function init() {
@@ -39,14 +39,11 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
 				return $result;
 			}
 
-			$route       = $request->get_route();
-			$method      = $request->get_method();
-			$request_uri = $_SERVER['REQUEST_URI'];
-			$namespace   = self::_get_namespace( $server, $request );
+			$request_uri = esc_url( $_SERVER['REQUEST_URI'] );
+			$skip = apply_filters( 'rest_cache_skip', WP_DEBUG, $request_uri, $server, $request );
 
-			$skip = apply_filters( 'rest_cache_skip', WP_DEBUG, $namespace, $method, $route, $request_uri );
 			if ( ! $skip ) {
-				$key = 'rest_cache_' . apply_filters( 'rest_cache_key', $request_uri, $namespace, $method, $route );
+				$key = 'rest_cache_' . apply_filters( 'rest_cache_key', $request_uri, $server, $request );
 				if ( false === ( $result = get_transient( $key ) ) ) {
 					if ( is_null( self::$refresh ) ) {
 						self::$refresh = true;
@@ -61,20 +58,6 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
 			}
 
 			return $result;
-		}
-
-		private static function _get_namespace( $server, $request ) {
-			$route = $request->get_route();
-
-			if ( ! empty( $route ) ) {
-				foreach ( $server->get_namespaces() as $namespace ) {
-					if ( strpos( $route, $namespace ) !== false ) {
-						return $namespace;
-					}
-				}
-			}
-
-			return false;
 		}
 
 		public static function empty_cache() {
