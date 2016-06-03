@@ -15,9 +15,10 @@ Filters
 ====
 | Filter    | Argument(s) |
 |-----------|-----------|
-| rest_cache_skip | boolean **$skip** ( default: WP_DEBUG )<br>string **$request_uri**<br>WP_REST_Server **$server**<br>WP_REST_Request **$request**|
-| rest_cache_key | string **$request_uri**<br>WP_REST_Server **$server**<br>WP_REST_Request **$request**|
-| rest_cache_timeout | int **$timeout**<br>int **$length**<br>int **$period**|
+| rest_cache_headers | array **$headers**<br>string **$request_uri**<br>WP_REST_Server **$server**<br>WP_REST_Request **$request** |
+| rest_cache_skip | boolean **$skip** ( default: WP_DEBUG )<br>string **$request_uri**<br>WP_REST_Server **$server**<br>WP_REST_Request **$request** |
+| rest_cache_key | string **$request_uri**<br>WP_REST_Server **$server**<br>WP_REST_Request **$request** |
+| rest_cache_timeout | int **$timeout**<br>int **$length**<br>int **$period** |
 | rest_cache_update_options | array **$options** |
 | rest_cache_get_options | array **$options** |
 | rest_cache_show_admin | boolean **$show** |
@@ -26,6 +27,15 @@ Filters
 
 How to use filters
 ----
+- **sending headers**
+
+```PHP
+add_filter( 'rest_cache_headers', function( $headers ) {
+	$headers['Cache-Control'] = 'public, max-age=3600';
+	
+	return $headers;
+} );
+```
 
 - **changing the cache timeout**
 

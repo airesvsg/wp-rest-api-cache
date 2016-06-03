@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=aires
 Tags: cache, rest, api, wp-api, wp-rest-api, json, wp, wordpress, wp-rest-api
 Requires at least: 4.3
 Tested up to: 4.5
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,8 +21,11 @@ Enable caching for WordPress REST API and increase speed of your application
 
 == Changelog ==
 
+= 1.2.0 =
+adding rest_cache_headers filter
+
 = 1.1.0 =
 improving the arguments of filters
 
-= 1.1.0 =
+= 1.0.0 =
 initial version

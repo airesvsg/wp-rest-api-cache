@@ -4,7 +4,7 @@
  * Description: Enable caching for WordPress REST API and increase speed of your application
  * Author: Aires Gonçalves
  * Author URI: http://github.com/airesvsg
- * Version: 1.1.0
+ * Version: 1.2.0
  * Plugin URI: https://github.com/airesvsg/wp-rest-api-cache
  * License: GPL2+
  */
@@ -17,7 +17,7 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
 
 	class WP_REST_Cache {
 
-		const VERSION = '1.1.0';
+		const VERSION = '1.2.0';
 
 		private static $refresh = null;
 
@@ -35,13 +35,20 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
 		}
 
 		public static function pre_dispatch( $result, $server, $request ) {
+			$request_uri = esc_url( $_SERVER['REQUEST_URI'] );
+
+			if ( method_exists( $server, 'send_headers' ) ) {
+				$headers = apply_filters( 'rest_cache_headers', array(), $request_uri, $server, $request );
+				if ( ! empty( $headers ) ) {
+					$server->send_headers( $headers );
+				}
+			}
+
 			if ( true == self::$refresh ) {
 				return $result;
 			}
 
-			$request_uri = esc_url( $_SERVER['REQUEST_URI'] );
 			$skip = apply_filters( 'rest_cache_skip', WP_DEBUG, $request_uri, $server, $request );
-
 			if ( ! $skip ) {
 				$key = 'rest_cache_' . apply_filters( 'rest_cache_key', $request_uri, $server, $request );
 				if ( false === ( $result = get_transient( $key ) ) ) {
