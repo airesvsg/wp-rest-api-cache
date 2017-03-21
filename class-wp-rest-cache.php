@@ -64,7 +64,11 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
             $result = $result->get_data();
           }
 
-					set_transient( $key, $result, $timeout );
+					try {
+					  set_transient( $key, $result, $timeout );
+          } catch (Exception $e) {
+            error_log($e);
+          }
 				}
 			}
 
