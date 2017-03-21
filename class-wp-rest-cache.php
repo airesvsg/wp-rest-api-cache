@@ -60,6 +60,10 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
 					$timeout = WP_REST_Cache_Admin::get_options( 'timeout' );
 					$timeout = apply_filters( 'rest_cache_timeout', $timeout['length'] * $timeout['period'], $timeout['length'], $timeout['period'] );
 					
+          if ( $result instanceof WP_REST_Response ) {
+            $result = $result->get_data();
+          }
+
 					set_transient( $key, $result, $timeout );
 				}
 			}
