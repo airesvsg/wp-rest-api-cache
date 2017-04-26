@@ -75,3 +75,16 @@ add_filter( 'rest_cache_skip', function( $skip, $request_uri ) {
 - **show / hide admin links**
 
 ![WP REST API Cache](http://airesgoncalves.com.br/screenshot/wp-rest-api-cache/readme/filter-admin-show.gif)
+
+- **empty cache on post-save**
+
+You can use the wordpress default filter "save_post" if you like to empty the cache on every save of a post, page or custom post type.
+
+```PHP
+function clearRestApiCacheOnSave( $post_id ) {
+	if ( class_exists( 'WP_REST_Cache' ) ) {
+		WP_REST_Cache::empty_cache();
+	}
+}
+add_action( 'save_post', 'clearRestApiCacheOnSave' );
+```
