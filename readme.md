@@ -81,10 +81,10 @@ add_filter( 'rest_cache_skip', function( $skip, $request_uri ) {
 You can use the wordpress default filter "save_post" if you like to empty the cache on every save of a post, page or custom post type.
 
 ```PHP
-function clearRestApiCacheOnSave( $post_id ) {
+function clear_rest_api_cache_on_save( $post_id ) {
 	if ( class_exists( 'WP_REST_Cache' ) ) {
 		WP_REST_Cache::empty_cache();
 	}
 }
-add_action( 'save_post', 'clearRestApiCacheOnSave' );
+add_action( 'save_post', 'clear_rest_api_cache_on_save' );
 ```
