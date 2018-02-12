@@ -64,7 +64,7 @@ add_filter( 'rest_cache_get_options', function( $options ) {
 
 ```PHP
 add_filter( 'rest_cache_skip', function( $skip, $request_uri ) {
-	if ( ! $skip && false !== stripos( 'wp-json/acf/v2', $request_uri ) ) {
+	if ( ! $skip && false !== stripos( $request_uri, 'wp-json/acf/v2' ) ) {
 		return true;
 	}
 
