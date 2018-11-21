@@ -1,0 +1,11 @@
+{
+  "name": "airesvsg/wp-rest-api-cache",
+  "description": "wp-rest-api-cache",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Aires Gonçalves"
+    }
+  ],
+  "minimum-stability": "dev"
+}
