@@ -48,7 +48,8 @@ if ( ! class_exists( 'WP_REST_Cache' ) ) {
 				return $result;
 			}
 
-			$skip = apply_filters( 'rest_cache_skip', WP_DEBUG, $request_uri, $server, $request );
+			$skip = (WP_DEBUG || $request->get_method() !== WP_REST_Server::READABLE) && !empty($request->get_header('authorization'));
+			$skip = apply_filters( 'rest_cache_skip', $skip, $request_uri, $server, $request );
 			if ( ! $skip ) {
 				$key = 'rest_cache_' . apply_filters( 'rest_cache_key', $request_uri, $server, $request );
 				if ( false === ( $result = get_transient( $key ) ) ) {
