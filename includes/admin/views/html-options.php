@@ -28,6 +28,22 @@ settings_errors(); ?>
 					</select>
 				</td>
 			</tr>
+            <tr>
+                <th scope="row"><?php _e( 'Type of cache', 'wp-rest-api-cache' ); ?></th>
+                <td>
+                    <?php $cache_type = absint($options['cache_type']); ?>
+                    <select name="rest_cache_options[cache_type]">
+                        <option value="<?php echo WP_REST_Cache_Admin::CACHE_TYPE_TRANSIENT; ?>"<?php selected( $cache_type, WP_REST_Cache_Admin::CACHE_TYPE_TRANSIENT ); ?>><?php _e( 'Transient', 'wp-rest-api-cache' ); ?></option>
+                        <option value="<?php echo WP_REST_Cache_Admin::CACHE_TYPE_DISK; ?>"<?php selected( $cache_type, WP_REST_Cache_Admin::CACHE_TYPE_DISK ); ?>><?php _e( 'Disk', 'wp-rest-api-cache' ); ?></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php _e( 'Path to cache (if using Disk)', 'wp-rest-api-cache' ); ?></th>
+                <td>
+                    <input type="text" id="fld-cache-path" style="width: 210px;" name="rest_cache_options[disk_cache_path]" value="<?php echo esc_attr($options['disk_cache_path']); ?>">
+                </td>
+            </tr>
 			<tr>
 				<th scope="row">&nbsp;</th>
 				<td><input type="submit" class="button button-primary" value="<?php _e( 'save changes', 'wp-rest-api-cache' ); ?>"></td>
