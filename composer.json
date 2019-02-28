@@ -1,11 +1,25 @@
 {
   "name": "airesvsg/wp-rest-api-cache",
-  "description": "wp-rest-api-cache",
+  "description": "Enable caching for WordPress REST API and increase speed of your application.",
   "type": "wordpress-plugin",
+  "version": "1.2.0",
+  "keywords": ["plugin", "wordpress", "wp", "cache", "rest-api"],
+  "homepage": "https://github.com/airesvsg/wp-rest-api-cache",
+  "license": "GPL-2.0-only",
   "authors": [
     {
-      "name": "Aires Gonçalves"
+      "name": "Aires Gonçalves",
+      "email": "airesvsg@gmail.com",
+      "homepage": "http://airesgoncalves.com",
+      "role": "Developer"
     }
   ],
-  "minimum-stability": "dev"
+  "support": {
+    "email": "airesvsg@gmail.com",
+    "issues": "https://github.com/airesvsg/wp-rest-api-cache/issues"
+  },
+  "require": {
+    "php": ">=5.3.2",
+    "composer/installers": "~1.5"
+  }
 }
