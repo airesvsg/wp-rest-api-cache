@@ -7,12 +7,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WP_REST_Cache_Admin' ) ) {
 
 	class WP_REST_Cache_Admin {
+	    const CACHE_TYPE_TRANSIENT = 1;
+        const CACHE_TYPE_DISK = 2;
 
 		private static $default = array(
 			'timeout' => array(
 				'length' => 1,
 				'period' => WEEK_IN_SECONDS,
 			),
+            'cache_type' => WP_REST_Cache_Admin::CACHE_TYPE_TRANSIENT,
+            'disk_cache_path' => '/tmp/wp-rest-api-cache'
 		);
 
 		public static function init() {
